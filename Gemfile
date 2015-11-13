@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails'
+gem 'pg'
 gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
 gem 'faker'
@@ -8,13 +9,12 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'rspec-rails'
   # The following optional lines are part of the advanced setup.
-  # gem 'guard-rspec', '2.5.0'
-  # gem 'spork-rails', '4.0.0'
-  # gem 'guard-spork', '1.5.0'
-  # gem 'childprocess', '0.3.6'
+  gem 'guard-rspec'
+  gem 'spork-rails'
+  gem 'guard-spork'
+  gem 'childprocess'
 end
 
 group :test do
@@ -23,17 +23,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-
-  # Uncomment this line on OS X.
-  # gem 'growl', '1.0.3'
-
-  # Uncomment these lines on Linux.
-  # gem 'libnotify', '0.8.0'
-
-  # Uncomment these lines on Windows.
-  # gem 'rb-notifu', '0.0.4'
-  # gem 'win32console', '1.3.2'
-  # gem 'wdm', '0.1.0'
+  gem 'libnotify'
 end
 
 gem 'sass-rails'
@@ -48,7 +38,6 @@ group :doc do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
 
