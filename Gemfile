@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails'
+gem 'bootstrap-sass', '2.3.2.0'
 gem 'pg'
-gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
 gem 'faker'
 gem 'will_paginate'
