@@ -3,6 +3,7 @@ require 'database_cleaner'
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'capybara-screenshot/rspec' # Capybara::Screenshot.screenshot_and_save_page
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
