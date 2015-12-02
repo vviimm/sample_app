@@ -17,7 +17,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL, type: :feature
   config.include FactoryGirl::Syntax::Methods, type: :feature
   config.include RSpec::Rails::RequestExampleGroup, type: :feature
-
+  Capybara::Screenshot.autosave_on_failure = false
   config.before :each do
     if Capybara.current_driver == :rack_test
       DatabaseCleaner.strategy = :transaction
