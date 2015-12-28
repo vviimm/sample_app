@@ -7,9 +7,9 @@ describe "Static pages", type: :feature do
   shared_examples_for "all static pages" do
     it { should have_selector('h1', text: heading) }
     it { should have_title(full_title(page_title)) }
-  end  
+  end
 
-  describe "Home page", type: :feature do
+  describe "Home page" do
     before { visit root_path }
 
     let(:heading)    { 'Sample App' }
@@ -17,9 +17,25 @@ describe "Static pages", type: :feature do
 
     it_should_behave_like "all static pages"
     it { should_not have_title('| Home') }
+
+    describe "for signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
+        FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
+        sign_in user
+        visit root_path
+      end
+
+      it "should render the user's feed" do
+        user.feed.each do |item|
+          expect(page).to have_selector("li##{item.id}", text: item.content)
+        end
+      end
+    end
   end
 
-  describe "Help page", type: :feature do
+  describe "Help page" do
     before { visit help_path }
 
     let(:heading)    { 'Help' }
@@ -29,7 +45,7 @@ describe "Static pages", type: :feature do
     it { should have_title("#{heading}") }
   end
 
-  describe "About page", type: :feature do
+  describe "About page" do
     before { visit about_path }
 
     let(:heading)    { 'About' }
@@ -39,7 +55,7 @@ describe "Static pages", type: :feature do
     it { should have_title("#{heading}") }
   end
 
-  describe "Contact page", type: :feature do
+  describe "Contact page" do
     before { visit contact_path }
 
     let(:heading)    { 'Contact' }
@@ -62,5 +78,5 @@ describe "Static pages", type: :feature do
     expect(page).to have_title(full_title('Sign up'))
     click_link "sample app"
     expect(page).to have_title(full_title(''))
-  end  
+  end
 end

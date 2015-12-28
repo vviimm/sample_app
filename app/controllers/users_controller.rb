@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def new
@@ -20,14 +21,14 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user      
+      redirect_to @user
     else
       render 'new'
     end
   end
 
   def edit
-  end 
+  end
 
   def update
     if @user.update_attributes(user_params)
@@ -36,7 +37,7 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
-  end      
+  end
 
   def destroy
     User.find(params[:id]).destroy
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, 
+      params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation)
     end
 
@@ -61,7 +62,7 @@ class UsersController < ApplicationController
       unless signed_in?
         store_location
         redirect_to signin_url, notice: "Please sign in."
-      end 
+      end
     end
 
     def correct_user
